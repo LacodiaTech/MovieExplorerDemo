@@ -57,7 +57,7 @@
                                    ItemSize="94"
                                    ItemSpacing="1,0"
                                    IsScrollBarVisible="False"
-                                   ItemsSource="{Binding NowPlayingList}"
+                                   ItemsSource="{Binding TopRatedList}"
                                    SelectedItem="{Binding SelectedMovie}">
                 <syncfusion:SfListView.ItemTemplate>
                     <DataTemplate>
@@ -83,7 +83,7 @@
                                    ItemSize="94"
                                    ItemSpacing="1,0"
                                    IsScrollBarVisible="False"
-                                   ItemsSource="{Binding NowPlayingList}"
+                                   ItemsSource="{Binding PopularList}"
                                    SelectedItem="{Binding SelectedMovie}">
                 <syncfusion:SfListView.ItemTemplate>
                     <DataTemplate>

@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace MovieExplorer.Core.Models
 {
-    public class NowPlayingListModel
+    public class TopRatedListModel
     {
-        public List<MovieDetails> results { get; set; }
         public int page { get; set; }
         public int total_results { get; set; }
-        public NowPlayingDateModel dates { get; set; }
         public int total_pages { get; set; }
+        public List<MovieDetails> results { get; set; }
     }
 }

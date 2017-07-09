@@ -26,6 +26,47 @@ namespace MovieExplorer.ViewModels
         #endregion
 
         #region Public Properties
+
+        /// <summary>
+        /// Model of Top Rated movies.
+        /// </summary>
+        private TopRatedListModel topRatedListItems;
+        public TopRatedListModel TopRatedListItems
+        {
+            get { return topRatedListItems; }
+            set { SetProperty(ref topRatedListItems, value); }
+        }
+
+        /// <summary>
+        /// List of Top Rated Movies.
+        /// </summary>
+        private ObservableCollection<MovieDetails> topRatedList = new ObservableCollection<MovieDetails>();
+        public ObservableCollection<MovieDetails> TopRatedList
+        {
+            get { return topRatedList; }
+            set { SetProperty(ref topRatedList, value); }
+        }
+
+        /// <summary>
+        /// Model of Popular movies.
+        /// </summary>
+        private PopularListModel popularListItems;
+        public PopularListModel PopularListItems
+        {
+            get { return popularListItems; }
+            set { SetProperty(ref popularListItems, value); }
+        }
+
+        /// <summary>
+        /// List of Popular Movies.
+        /// </summary>
+        private ObservableCollection<MovieDetails> popularList = new ObservableCollection<MovieDetails>();
+        public ObservableCollection<MovieDetails> PopularList
+        {
+            get { return popularList; }
+            set { SetProperty(ref popularList, value); }
+        }
+
         /// <summary>
         /// Model of movies now playing.
         /// </summary>
@@ -39,8 +80,8 @@ namespace MovieExplorer.ViewModels
         /// <summary>
         /// List of Now Playing movies.
         /// </summary>
-        private ObservableCollection<NowPlayingModel> nowPlayingList = new ObservableCollection<NowPlayingModel>();
-        public ObservableCollection<NowPlayingModel> NowPlayingList
+        private ObservableCollection<MovieDetails> nowPlayingList = new ObservableCollection<MovieDetails>();
+        public ObservableCollection<MovieDetails> NowPlayingList
         {
             get { return nowPlayingList; }
             set { SetProperty(ref nowPlayingList, value); }
@@ -56,13 +97,16 @@ namespace MovieExplorer.ViewModels
             set
             {
                 SetProperty(ref selectedMovie, value);
-                ShowDetails(selectedMovie);
+                if (selectedMovie != null)
+                {
+                    ShowDetails(selectedMovie);
+                    selectedMovie = null;
+                }                
             }
         }
 
 
         #endregion
-
 
         public MainPageViewModel(INavigationService navigationService, IMovieExplorerAPIService iMovieExplorerAPIService)
         {
@@ -82,7 +126,36 @@ namespace MovieExplorer.ViewModels
 
         public async void OnNavigatedTo(NavigationParameters parameters)
         {
+            await GetTopRatedMovieListAsync();
+            await GetPopularMoviesListAsync();
             await GetNowPlayingMovieListAsync();
+        }
+
+        #region Methods
+        private async Task<TopRatedListModel> GetTopRatedMovieListAsync()
+        {
+            // TODO: Implement softing and filtering feature.
+            var sortBy = "popularity.des";
+            var topRatedMovieList = await _iMovieExplorerAPIService.GetTopRatedMoviesAsync(sortBy);
+
+            if (topRatedMovieList.results != null)
+            {
+                TopRatedList = new ObservableCollection<MovieDetails>(topRatedMovieList.results);
+            }
+            return topRatedMovieList;
+        }
+
+        private async Task<PopularListModel> GetPopularMoviesListAsync()
+        {
+            // TODO: Implement softing and filtering feature.
+            var sortBy = "popularity.des";
+            var popularMovieList = await _iMovieExplorerAPIService.GetPopularMoviesAsync(sortBy);
+
+            if (popularMovieList.results != null)
+            {
+                PopularList = new ObservableCollection<MovieDetails>(popularMovieList.results);
+            }
+            return popularMovieList;
         }
 
         /// <summary>
@@ -97,7 +170,7 @@ namespace MovieExplorer.ViewModels
 
             if (nowPlayingMovieList.results != null)
             {
-                NowPlayingList = new ObservableCollection<NowPlayingModel>(nowPlayingMovieList.results);
+                NowPlayingList = new ObservableCollection<MovieDetails>(nowPlayingMovieList.results);
             }
             return nowPlayingMovieList;
         }
@@ -108,5 +181,6 @@ namespace MovieExplorer.ViewModels
             navigationParams.Add("selectedMovie", selectedMovie);
             _navigationService.NavigateAsync("MovieDetailsPage", navigationParams);
         }
+        #endregion
     }
 }

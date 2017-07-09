@@ -37,9 +37,12 @@
   <ItemGroup>
     <Compile Include="Helpers\ExceptionHandling.cs" />
     <Compile Include="Interfaces\IMovieExplorerAPIService.cs" />
+    <Compile Include="Models\MovieDetails.cs" />
     <Compile Include="Models\NowPlayingDateModel.cs" />
     <Compile Include="Models\NowPlayingListModel.cs" />
-    <Compile Include="Models\NowPlayingModel.cs" />
+    <Compile Include="Models\PopularListModel.cs" />
+    <Compile Include="Models\SimilarListModel.cs" />
+    <Compile Include="Models\TopRatedListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseProvider.cs" />
     <Compile Include="Services\MovieExplorerAPIService.cs" />

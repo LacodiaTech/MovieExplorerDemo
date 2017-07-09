@@ -1,9 +1,114 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:theme="clr-namespace:MovieExplorer.Themes"
              x:Class="MovieExplorer.Views.MovieDetailsPage"
              NavigationPage.HasNavigationBar="False">
-  
+
+    <ContentPage.Resources>
+        <ResourceDictionary MergedWith="theme:DefaultTheme">
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView Style="{StaticResource PageBackgroundStyle}">
+        <Grid HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="135" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="135" />
+            </Grid.RowDefinitions>
+
+            <!-- Header-->
+            <Grid Grid.Row="0"
+                  HorizontalOptions="FillAndExpand"
+                  Style="{StaticResource HeaderBackgroundStyle}">
+                <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                              Orientation="Horizontal" >
+                    <Label Text="Movie Explorer"
+                           HorizontalOptions="CenterAndExpand"
+                           Style="{StaticResource LabelHeaderStyle}"/>
+                    <ffimageloadingsvg:SvgCachedImage WidthRequest="25"
+                                                      HeightRequest="25"
+                                                      Margin="0,0,5,0"
+                                                      HorizontalOptions="End"
+                                                      Source="resource://MovieExplorer.Resources.magnify.svg">
+
+                    </ffimageloadingsvg:SvgCachedImage>
+                </StackLayout>
+            </Grid>
+            
+            <!-- Movie Details-->
+            <Grid Grid.Row="1"
+                  HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  Margin="10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="135" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="94" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                
+                <Image x:Name="MoviePoster" Grid.Row="0" Grid.Column="0"
+                       Source="{Binding Image}"/>
+                <StackLayout Grid.Row="0" Grid.Column="1"
+                             HorizontalOptions="FillAndExpand">
+                    <Label Text="{Binding Title}" 
+                           Style="{StaticResource MovieLabelStyle}"/>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Release Date:" 
+                           Style="{StaticResource MovieLabelStyle}"/>
+                        <Label Text="{Binding ReleaseDate}" 
+                           Style="{StaticResource MovieLabelStyle}"/>
+                    </StackLayout>
+                    <Label Text="{Binding VoteCount}" 
+                           Style="{StaticResource MovieLabelStyle}"/>
+                </StackLayout>
+            </Grid>
+            
+            <!-- Movie Overview-->
+            <Label Text="{Binding Overview}" Grid.Row="2"
+                   Margin="10,0"
+                   HorizontalOptions="FillAndExpand"
+                   Style="{StaticResource MovieLabelStyle}"/>
+
+            <!-- Similar Movies-->
+            <Label Text="Similar Movies" Grid.Row="3"
+                   Margin="10,0"
+                   Style="{StaticResource MovieLabelStyle}"/>
+            <syncfusion:SfListView x:Name="SimilarListView" Grid.Row="4"
+                                   Margin="10,0,0,5"
+                                   Orientation="Horizontal"
+                                   VerticalOptions="FillAndExpand"
+                                   ItemSize="94"
+                                   ItemSpacing="1,0"
+                                   IsScrollBarVisible="False"
+                                   ItemsSource="{Binding SimilarList}"
+                                   SelectedItem="{Binding SelectedMovie}">
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal"
+                                     Padding="1"
+                                     BackgroundColor="{StaticResource BorderColor}"
+                                     HorizontalOptions="StartAndExpand"
+                                     VerticalOptions="FillAndExpand">
+                            <Image x:Name="TopRatedMoviePosterImage"
+                                   Source="{Binding poster_fullPath}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+        </Grid>
+    </ScrollView>
 </ContentPage>

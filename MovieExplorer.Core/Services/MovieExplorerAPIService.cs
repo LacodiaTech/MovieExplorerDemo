@@ -13,14 +13,54 @@ namespace MovieExplorer.Core.Services
     {
         private const string APIKey = "ab41356b33d100ec61e6c098ecc92140";
 
-        public async Task<NowPlayingListModel> GetNowPlayingMoviesAsync(string sortBy)
+        /// <summary>
+        /// Gets Top Rated Movies.
+        /// </summary>
+        /// <param name="sortBy"></param>
+        /// <returns></returns>
+        public async Task<TopRatedListModel> GetTopRatedMoviesAsync(string sortBy)
         {
             // Build requestUrl string.
             var typeOfRequest = "top_rated";
+            var topPlayingRequestUrl = string.Format($"{BaseURL}{typeOfRequest}?api_key={APIKey}&sort_by={sortBy}");
+
+            return await this.SendRequestAsync<object, TopRatedListModel>(HttpMethod.Get, topPlayingRequestUrl, null);
+        }
+
+        /// <summary>
+        /// Gets Popular Movies.
+        /// </summary>
+        /// <param name="sortBy"></param>
+        /// <returns></returns>
+        public async Task<PopularListModel> GetPopularMoviesAsync(string sortBy)
+        {
+            // Build requestUrl string.
+            var typeOfRequest = "popular";
+            var popularRequestUrl = string.Format($"{BaseURL}{typeOfRequest}?api_key={APIKey}&sort_by={sortBy}");
+
+            return await this.SendRequestAsync<object, PopularListModel>(HttpMethod.Get, popularRequestUrl, null);
+        }
+
+        /// <summary>
+        /// Gets Now Playing Movies.
+        /// </summary>
+        /// <param name="sortBy"></param>
+        /// <returns></returns>
+        public async Task<NowPlayingListModel> GetNowPlayingMoviesAsync(string sortBy)
+        {
+            // Build requestUrl string.
+            var typeOfRequest = "now_playing";
             var nowPlayingRequestUrl = string.Format($"{BaseURL}{typeOfRequest}?api_key={APIKey}&sort_by={sortBy}");
 
-
             return await this.SendRequestAsync<object, NowPlayingListModel>(HttpMethod.Get, nowPlayingRequestUrl, null);
+        }
+
+        public async Task<SimilarListModel> GetSimilarMoviesAsync(int movieId)
+        {
+            var typeOfRequest = $"{movieId}/similar";
+            var nowPlayingRequestUrl = string.Format($"{BaseURL}{typeOfRequest}?api_key={APIKey}");
+
+            return await this.SendRequestAsync<object, SimilarListModel>(HttpMethod.Get, nowPlayingRequestUrl, null);
         }
     }
 }

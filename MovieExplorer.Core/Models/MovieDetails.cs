@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieExplorer.Core.Models
 {
-    public class NowPlayingModel
+    public class MovieDetails
     {
         public int vote_count { get; set; }
         public int id { get; set; }

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MovieExplorer.Themes.DefaultTheme">
+
+    <!-- Basic Colors-->
+
+    <Color x:Key="BasicLight1Color">#fafafa</Color>
+    <Color x:Key="BasicDark1Color">#323232</Color>
+    <Color x:Key="BasicDark2Color">#525252</Color>
+    <Color x:Key="GoldColor">#DA952D</Color>
+    <Color x:Key="BorderColor">#ebebeb</Color>
+
+    <!-- Default Target Types -->
+    <Style TargetType="Label">
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <OnPlatform x:TypeArguments="x:Double" 
+                    iOS="18" 
+                    WinPhone="24" 
+                    Android="18" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="TextColor" Value="{StaticResource BasicLight1Color}"/>
+    </Style>
+
+    <!-- Default Styles -->
+
+    <Style x:Key="PageBackgroundStyle" TargetType="VisualElement">
+        <Setter Property="BackgroundColor" Value="{StaticResource BasicDark2Color}" />
+    </Style>
+    
+    <Style x:Key="HeaderBackgroundStyle" TargetType="VisualElement">
+        <Setter Property="BackgroundColor" Value="{StaticResource BasicDark1Color}" />
+    </Style>
+
+    <Style x:Key="LabelHeaderStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource GoldColor}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="Micro" />
+    </Style>
+
+    <Style x:Key="MovieLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource BasicLight1Color}" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="Micro" />
+        <Setter Property="Margin" Value="10,0,0,0" />        
+    </Style>
+
+</ResourceDictionary>

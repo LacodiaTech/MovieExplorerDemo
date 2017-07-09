@@ -26,13 +26,36 @@ namespace MovieExplorer.ViewModels
         private readonly IMovieExplorerAPIService _iMovieExplorerAPIService;
 
         /// <summary>
+        /// Interface for saveing and retrieving data.
+        /// </summary>
+        private readonly IDataManager _iDataManager;
+
+        /// <summary>
         /// Id of the selectd movie for calling Similar Movies.
         /// </summary>
         private int movieId;
+
+        /// <summary>
+        /// Check if movie is a favorite.
+        /// </summary>
+        private bool isFavorite = false;
         #endregion
 
         #region Public Properties
 
+        /// <summary>
+        /// Selected movie details
+        /// </summary>
+        private MovieDetails movie = new MovieDetails();
+        public MovieDetails Movie
+        {
+            get { return movie; }
+            set { SetProperty(ref movie, value); }
+        }
+
+        /// <summary>
+        /// Larger size movie image.
+        /// </summary>
         private ImageSource image;
         public ImageSource Image
         {
@@ -40,6 +63,9 @@ namespace MovieExplorer.ViewModels
             set { SetProperty(ref image, value); }
         }
 
+        /// <summary>
+        /// Movie Title.
+        /// </summary>
         private string title;
         public string Title
         {
@@ -47,12 +73,19 @@ namespace MovieExplorer.ViewModels
             set { SetProperty(ref title, value); }
         }
 
+        /// <summary>
+        /// Movie Release Date.
+        /// </summary>
         private string releaseDate;
         public string ReleaseDate
         {
             get { return releaseDate; }
             set { SetProperty(ref releaseDate, value); }
         }
+
+        /// <summary>
+        /// Number of votes.
+        /// </summary>
         private string voteCount;
         public string VoteCount
         {
@@ -60,11 +93,44 @@ namespace MovieExplorer.ViewModels
             set { SetProperty(ref voteCount, value); }
         }
 
+        /// <summary>
+        /// Average rating for movie.
+        /// </summary>
+        private double averageRating;
+        public double AverageRating
+        {
+            get { return averageRating; }
+            set { SetProperty(ref averageRating, value); }
+        }
+
+        /// <summary>
+        /// Description of Movie.
+        /// </summary>
         private string overview;
         public string Overview
         {
             get { return overview; }
             set { SetProperty(ref overview, value); }
+        }
+
+        /// <summary>
+        /// Text for Favorites buttons.
+        /// </summary>
+        private string favorite = "Save To Favorites";
+        public string Favorite
+        {
+            get { return favorite; }
+            set { SetProperty(ref favorite, value); }
+        }
+
+        /// <summary>
+        /// Check if button is disabled while saving or deleting.
+        /// </summary>
+        private bool isFavoriteButtonEnabled = true;
+        public bool IsFavoriteButtonEnabled
+        {
+            get { return isFavoriteButtonEnabled; }
+            set { SetProperty(ref isFavoriteButtonEnabled, value); }
         }
 
         /// <summary>
@@ -99,19 +165,30 @@ namespace MovieExplorer.ViewModels
                 SetProperty(ref selectedMovie, value);
                 if (selectedMovie != null)
                 {
-                    ShowDetails(selectedMovie);
+                    LoadSimilarMovie(selectedMovie);
                     selectedMovie = null;
                 }
             }
         }
         #endregion
 
-        public MovieDetailsPageViewModel(INavigationService navigationService, IMovieExplorerAPIService iMovieExplorerAPIService)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="navigationService"></param>
+        /// <param name="iMovieExplorerAPIService"></param>
+        /// <param name="iDataManager"></param>
+        public MovieDetailsPageViewModel(INavigationService navigationService, IMovieExplorerAPIService iMovieExplorerAPIService, IDataManager iDataManager)
         {
             _navigationService = navigationService;
             _iMovieExplorerAPIService = iMovieExplorerAPIService;
+            _iDataManager = iDataManager;
+
+            CloseCommand = new DelegateCommand(Close);
+            SaveToFavoritesCommand = new DelegateCommand(SaveToFavorites);
         }
 
+        #region Navigation
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
         }
@@ -123,19 +200,45 @@ namespace MovieExplorer.ViewModels
 
         public async void OnNavigatingTo(NavigationParameters parameters)
         {
-            var selectedMovie = (MovieDetails)parameters["selectedMovie"];
-            Image = selectedMovie.poster_fullPath;
-            Title = selectedMovie.title;
-            ReleaseDate = selectedMovie.release_date;
-            VoteCount = $"(from {selectedMovie.vote_count} votes)";
-            Overview = selectedMovie.overview;
-            movieId = selectedMovie.id;
+            Movie = (MovieDetails)parameters["selectedMovie"];
+
+            Image = movie.poster_fullPathw154;
+            Title = movie.title;
+            ReleaseDate = movie.release_date;
+            VoteCount = $"(from {movie.vote_count} votes)";
+            Overview = movie.overview;
+            movieId = movie.id;
+
+            double arBaseTen = movie.vote_average;
+            AverageRating = arBaseTen / 2;
 
             await GetSimilarMovieListAsync();
+            await CheckIfMovieIsFavorite();
+        }
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Command for favoriting movie.
+        /// </summary>
+        public DelegateCommand SaveToFavoritesCommand { get; set; }
+        private async void SaveToFavorites()
+        {
+            await UpdateFavoriteButton();
         }
 
-        #region Methods
+        /// <summary>
+        /// Navigates back to the Main Movie Page.
+        /// </summary>
+        public DelegateCommand CloseCommand { get; set; }
+        private void Close()
+        {
+            _navigationService.NavigateAsync("NavigationPage/MainPage", null, true, true);
+        }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Get the list of the Similar Movies.
         /// </summary>
@@ -151,11 +254,79 @@ namespace MovieExplorer.ViewModels
             return similarMovieList;
         }
 
-        private void ShowDetails(object selectedMovie)
+        /// <summary>
+        /// Check to see if there is a favorited movie saved.
+        /// </summary>
+        /// <returns></returns>
+        private async Task CheckIfMovieIsFavorite()
+        {
+            var fileName = movieId.ToString();
+            MovieDetails returedFile = await _iDataManager.OpenFavoritesFile(fileName);
+
+            if (returedFile != null)
+            {
+                Movie = returedFile;
+                await UpdateFavoriteButton();
+            }
+        }
+
+        /// <summary>
+        /// Update the favorites button with the relevent text.
+        /// </summary>
+        /// <returns></returns>
+        private async Task UpdateFavoriteButton()
+        {
+            IsFavoriteButtonEnabled = false;
+            if (favorite.Contains("Save To Favorites"))
+            {                
+                Movie.is_favorite = true;
+
+                await SaveFavorites();
+                Favorite = "Remove from Favorites";
+            }
+            else
+            {
+                Movie.is_favorite = false;
+
+                await DeleteMovieFromFavorites();
+                Favorite = "Save To Favorites";
+            }
+        }
+
+        /// <summary>
+        /// Reload the details page with selected similar movie.
+        /// </summary>
+        /// <param name="selectedMovie"></param>
+        private void LoadSimilarMovie(object selectedMovie)
         {
             var navigationParams = new NavigationParameters();
             navigationParams.Add("selectedMovie", selectedMovie);
             //_navigationService.NavigateAsync("MovieDetailsPage", navigationParams);
+        }
+
+        /// <summary>
+        /// Save favorited movie to local storage.
+        /// </summary>
+        /// <returns></returns>
+        private async Task SaveFavorites()
+        {
+            var filename = movieId.ToString();
+
+            await _iDataManager.SaveFavoritesFile(movie, filename);
+            IsFavoriteButtonEnabled = true;
+        }
+
+        /// <summary>
+        /// Remove movie from favorited list.
+        /// </summary>
+        /// <returns></returns>
+        private async Task DeleteMovieFromFavorites()
+        {
+            var filename = movieId.ToString();
+
+            await _iDataManager.DeleteFavoritesFile(filename);
+
+            IsFavoriteButtonEnabled = true;
         }
         #endregion
     }

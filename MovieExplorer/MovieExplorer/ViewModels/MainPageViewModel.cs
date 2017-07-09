@@ -179,7 +179,7 @@ namespace MovieExplorer.ViewModels
         {
             var navigationParams = new NavigationParameters();
             navigationParams.Add("selectedMovie", selectedMovie);
-            _navigationService.NavigateAsync("MovieDetailsPage", navigationParams);
+            _navigationService.NavigateAsync("MovieDetailsPage", navigationParams, true, true);
         }
         #endregion
     }

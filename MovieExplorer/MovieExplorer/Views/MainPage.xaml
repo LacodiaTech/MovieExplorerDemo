@@ -49,6 +49,7 @@
 
             <!-- Top Rated Movies-->
             <Label Text="Top Rated" Grid.Row="1"
+                   Margin="10,0,0,0"
                    Style="{StaticResource MovieLabelStyle}"/>
             <syncfusion:SfListView x:Name="TopRatedListView" Grid.Row="2"
                                    Margin="10,0,0,5"
@@ -67,7 +68,7 @@
                                      HorizontalOptions="StartAndExpand"
                                      VerticalOptions="FillAndExpand">                            
                             <Image x:Name="TopRatedMoviePosterImage"
-                                   Source="{Binding poster_fullPath}"/>
+                                   Source="{Binding poster_fullPathw92}"/>
                         </StackLayout>
                     </DataTemplate>
                 </syncfusion:SfListView.ItemTemplate>
@@ -75,6 +76,7 @@
             
             <!-- Popular Movies -->
             <Label Text="Popular" Grid.Row="3"
+                   Margin="10,0,0,0"
                    Style="{StaticResource MovieLabelStyle}"/>
             <syncfusion:SfListView x:Name="PopularListView" Grid.Row="4"
                                    Margin="10,0,0,5"
@@ -93,7 +95,7 @@
                                      HorizontalOptions="StartAndExpand"
                                      VerticalOptions="FillAndExpand">
                             <Image x:Name="TopRatedMoviePosterImage"
-                                   Source="{Binding poster_fullPath}"/>
+                                   Source="{Binding poster_fullPathw92}"/>
                         </StackLayout>
                     </DataTemplate>
                 </syncfusion:SfListView.ItemTemplate>
@@ -101,6 +103,7 @@
 
             <!-- Now Playing Movies-->
             <Label Text="Now Playing" Grid.Row="5"
+                   Margin="10,0,0,0"
                    Style="{StaticResource MovieLabelStyle}"/>
             <syncfusion:SfListView x:Name="NowPlayingListView" Grid.Row="6"
                                    Margin="10,0,0,5"
@@ -119,7 +122,7 @@
                                      HorizontalOptions="StartAndExpand"
                                      VerticalOptions="FillAndExpand">
                             <Image x:Name="TopRatedMoviePosterImage"
-                                   Source="{Binding poster_fullPath}"/>
+                                   Source="{Binding poster_fullPathw92}"/>
                         </StackLayout>
                     </DataTemplate>
                 </syncfusion:SfListView.ItemTemplate>

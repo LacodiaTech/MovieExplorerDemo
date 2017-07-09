@@ -23,6 +23,7 @@ namespace MovieExplorer
             Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<MainPage>();
             Container.RegisterType<IMovieExplorerAPIService, MovieExplorerAPIService>();
+            Container.RegisterType<IDataManager, DataManager>();
             Container.RegisterTypeForNavigation<MovieDetailsPage>();
         }
     }

@@ -56,8 +56,8 @@ namespace MovieExplorer.ViewModels
         /// <summary>
         /// Larger size movie image.
         /// </summary>
-        private ImageSource image;
-        public ImageSource Image
+        private string image;
+        public string Image
         {
             get { return image; }
             set { SetProperty(ref image, value); }
@@ -193,11 +193,6 @@ namespace MovieExplorer.ViewModels
         {
         }
 
-        public void OnNavigatedTo(NavigationParameters parameters)
-        {
-
-        }
-
         public async void OnNavigatingTo(NavigationParameters parameters)
         {
             Movie = (MovieDetailsModel)parameters["selectedMovie"];
@@ -214,6 +209,11 @@ namespace MovieExplorer.ViewModels
 
             await GetSimilarMovieListAsync();
             await CheckIfMovieIsFavorite();
+        }
+
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
+
         }
         #endregion
 

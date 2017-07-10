@@ -25,7 +25,7 @@
                 <RowDefinition Height="200" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="135" />
+                <RowDefinition Height="172" />
             </Grid.RowDefinitions>
 
             <!-- Header-->
@@ -67,6 +67,7 @@
                              BackgroundColor="{StaticResource BorderColor}">
                     <Image x:Name="MoviePoster"
                            HeightRequest="200"
+                           WidthRequest="132"
                            Source="{Binding Image}"/>
                 </StackLayout>
 
@@ -125,7 +126,7 @@
                                    Margin="10,0,0,5"
                                    Orientation="Horizontal"
                                    VerticalOptions="FillAndExpand"
-                                   ItemSize="94"
+                                   ItemSize="125"
                                    ItemSpacing="1,0"
                                    IsScrollBarVisible="False"
                                    ItemsSource="{Binding SimilarList}"
@@ -138,7 +139,9 @@
                                      HorizontalOptions="StartAndExpand"
                                      VerticalOptions="FillAndExpand">
                             <Image x:Name="TopRatedMoviePosterImage"
-                                   Source="{Binding poster_fullPathw92}"/>
+                                   HeightRequest="170"
+                                   WidthRequest="114"
+                                   Source="{Binding poster_fullPathw154}"/>
                         </StackLayout>
                     </DataTemplate>
                 </syncfusion:SfListView.ItemTemplate>

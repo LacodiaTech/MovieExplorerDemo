@@ -38,16 +38,6 @@ namespace MovieExplorer.ViewModels
         #region Public Properties
 
         /// <summary>
-        /// Model of Top Rated movies.
-        /// </summary>
-        private TopRatedListModel topRatedListItems;
-        public TopRatedListModel TopRatedListItems
-        {
-            get { return topRatedListItems; }
-            set { SetProperty(ref topRatedListItems, value); }
-        }
-
-        /// <summary>
         /// List of Top Rated Movies.
         /// </summary>
         private ObservableCollection<MovieDetailsModel> topRatedList = new ObservableCollection<MovieDetailsModel>();
@@ -58,16 +48,6 @@ namespace MovieExplorer.ViewModels
         }
 
         /// <summary>
-        /// Model of Popular movies.
-        /// </summary>
-        private PopularListModel popularListItems;
-        public PopularListModel PopularListItems
-        {
-            get { return popularListItems; }
-            set { SetProperty(ref popularListItems, value); }
-        }
-
-        /// <summary>
         /// List of Popular Movies.
         /// </summary>
         private ObservableCollection<MovieDetailsModel> popularList = new ObservableCollection<MovieDetailsModel>();
@@ -75,16 +55,6 @@ namespace MovieExplorer.ViewModels
         {
             get { return popularList; }
             set { SetProperty(ref popularList, value); }
-        }
-
-        /// <summary>
-        /// Model of movies now playing.
-        /// </summary>
-        private NowPlayingListModel nowPlayingListItems;
-        public NowPlayingListModel NowPlayingListItems
-        {
-            get { return nowPlayingListItems; }
-            set { SetProperty(ref nowPlayingListItems, value); }
         }
 
         /// <summary>
@@ -124,8 +94,6 @@ namespace MovieExplorer.ViewModels
                 }                
             }
         }
-
-
         #endregion
 
         public MainPageViewModel(INavigationService navigationService, IMovieExplorerAPIService iMovieExplorerAPIService, IDataManager iDataManager)
@@ -140,17 +108,17 @@ namespace MovieExplorer.ViewModels
 
         }
 
-        public void OnNavigatingTo(NavigationParameters parameters)
-        {
-
-        }
-
-        public async void OnNavigatedTo(NavigationParameters parameters)
+        public async void OnNavigatingTo(NavigationParameters parameters)
         {
             await GetTopRatedMovieListAsync();
             await GetPopularMoviesListAsync();
             await GetNowPlayingMovieListAsync();
             await GetFavoritedMovieListAsync();
+        }
+
+        public async void OnNavigatedTo(NavigationParameters parameters)
+        {
+
         }
 
         #region Methods

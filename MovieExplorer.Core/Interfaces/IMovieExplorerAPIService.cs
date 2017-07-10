@@ -36,5 +36,12 @@ namespace MovieExplorer.Core.Interfaces
         /// <param name="movieId"></param>
         /// <returns></returns>
         Task<SimilarListModel> GetSimilarMoviesAsync(int movieId);
+
+        /// <summary>
+        /// Gets movie details by id.
+        /// </summary>
+        /// <param name="movieId"></param>
+        /// <returns></returns>
+        Task<MovieDetailsModel> GetMovieByIdAsync(int movieId);
     }
 }

@@ -26,6 +26,8 @@
                 <RowDefinition Height="135" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="135" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="135" />
             </Grid.RowDefinitions>
 
             <!-- Header-->
@@ -113,6 +115,33 @@
                                    ItemSpacing="1,0"
                                    IsScrollBarVisible="False"
                                    ItemsSource="{Binding NowPlayingList}"
+                                   SelectedItem="{Binding SelectedMovie}">
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal"
+                                     Padding="1"
+                                     BackgroundColor="{StaticResource BorderColor}"
+                                     HorizontalOptions="StartAndExpand"
+                                     VerticalOptions="FillAndExpand">
+                            <Image x:Name="TopRatedMoviePosterImage"
+                                   Source="{Binding poster_fullPathw92}"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+
+            <!-- Favorite Movies-->
+            <Label Text="Favorites" Grid.Row="7"
+                   Margin="10,0,0,0"
+                   Style="{StaticResource MovieLabelStyle}"/>
+            <syncfusion:SfListView x:Name="FavoritesListView" Grid.Row="8"
+                                   Margin="10,0,0,5"
+                                   Orientation="Horizontal"
+                                   VerticalOptions="FillAndExpand"
+                                   ItemSize="94"
+                                   ItemSpacing="1,0"
+                                   IsScrollBarVisible="False"
+                                   ItemsSource="{Binding FavoriteList}"
                                    SelectedItem="{Binding SelectedMovie}">
                 <syncfusion:SfListView.ItemTemplate>
                     <DataTemplate>

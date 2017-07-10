@@ -38,7 +38,7 @@
     <Compile Include="Helpers\ExceptionHandling.cs" />
     <Compile Include="Interfaces\IDataManager.cs" />
     <Compile Include="Interfaces\IMovieExplorerAPIService.cs" />
-    <Compile Include="Models\MovieDetails.cs" />
+    <Compile Include="Models\MovieDetailsModel.cs" />
     <Compile Include="Models\NowPlayingDateModel.cs" />
     <Compile Include="Models\NowPlayingListModel.cs" />
     <Compile Include="Models\PopularListModel.cs" />

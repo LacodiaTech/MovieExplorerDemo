@@ -46,8 +46,8 @@ namespace MovieExplorer.ViewModels
         /// <summary>
         /// Selected movie details
         /// </summary>
-        private MovieDetails movie = new MovieDetails();
-        public MovieDetails Movie
+        private MovieDetailsModel movie = new MovieDetailsModel();
+        public MovieDetailsModel Movie
         {
             get { return movie; }
             set { SetProperty(ref movie, value); }
@@ -146,8 +146,8 @@ namespace MovieExplorer.ViewModels
         /// <summary>
         /// List of Similar Movies.
         /// </summary>
-        private ObservableCollection<MovieDetails> similarList = new ObservableCollection<MovieDetails>();
-        public ObservableCollection<MovieDetails> SimilarList
+        private ObservableCollection<MovieDetailsModel> similarList = new ObservableCollection<MovieDetailsModel>();
+        public ObservableCollection<MovieDetailsModel> SimilarList
         {
             get { return similarList; }
             set { SetProperty(ref similarList, value); }
@@ -200,7 +200,7 @@ namespace MovieExplorer.ViewModels
 
         public async void OnNavigatingTo(NavigationParameters parameters)
         {
-            Movie = (MovieDetails)parameters["selectedMovie"];
+            Movie = (MovieDetailsModel)parameters["selectedMovie"];
 
             Image = movie.poster_fullPathw154;
             Title = movie.title;
@@ -249,7 +249,7 @@ namespace MovieExplorer.ViewModels
 
             if (similarMovieList.results != null)
             {
-                SimilarList = new ObservableCollection<MovieDetails>(similarMovieList.results);
+                SimilarList = new ObservableCollection<MovieDetailsModel>(similarMovieList.results);
             }
             return similarMovieList;
         }
@@ -261,7 +261,7 @@ namespace MovieExplorer.ViewModels
         private async Task CheckIfMovieIsFavorite()
         {
             var fileName = movieId.ToString();
-            MovieDetails returedFile = await _iDataManager.OpenFavoritesFile(fileName);
+            MovieDetailsModel returedFile = await _iDataManager.OpenFavoritesFile(fileName);
 
             if (returedFile != null)
             {
@@ -301,7 +301,7 @@ namespace MovieExplorer.ViewModels
         {
             var navigationParams = new NavigationParameters();
             navigationParams.Add("selectedMovie", selectedMovie);
-            //_navigationService.NavigateAsync("MovieDetailsPage", navigationParams);
+            _navigationService.NavigateAsync("MovieDetailsPage", navigationParams, true, true);
         }
 
         /// <summary>

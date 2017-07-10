@@ -12,6 +12,8 @@ namespace MovieExplorer.Core.Services
 {
     public class DataManager : IDataManager
     {
+        //TODO: Abstract out data management system if more file types will be saved.
+
         IFolder folder = FileSystem.Current.LocalStorage;
 
         /// <summary>
@@ -20,7 +22,7 @@ namespace MovieExplorer.Core.Services
         /// <param name="movieDetails"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public async Task SaveFavoritesFile(MovieDetails movieDetails, string fileName)
+        public async Task SaveFavoritesFile(MovieDetailsModel movieDetails, string fileName)
         {
             IFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
             var fileString = JsonConvert.SerializeObject(movieDetails);
@@ -32,9 +34,9 @@ namespace MovieExplorer.Core.Services
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public async Task<MovieDetails> OpenFavoritesFile(string fileName)
+        public async Task<MovieDetailsModel> OpenFavoritesFile(string fileName)
         {
-            MovieDetails movieDetails = new MovieDetails();
+            MovieDetailsModel movieDetails = new MovieDetailsModel();
 
             if ((await folder.CheckExistsAsync(fileName)) == ExistenceCheckResult.NotFound)
             {
@@ -47,7 +49,7 @@ namespace MovieExplorer.Core.Services
 
                 if (!string.IsNullOrEmpty(jsonFile))
                 {
-                    movieDetails = JsonConvert.DeserializeObject<MovieDetails>(jsonFile);
+                    movieDetails = JsonConvert.DeserializeObject<MovieDetailsModel>(jsonFile);
                     return movieDetails;
                 }
                 return null;
@@ -66,6 +68,16 @@ namespace MovieExplorer.Core.Services
                 IFile file = await folder.GetFileAsync(fileName);
                 await file.DeleteAsync();
             }
+        }
+
+        /// <summary>
+        /// Returns a list of files in the local storage.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IList<IFile>> GetListOfFiles()
+        {
+            IList<IFile> fileList = await folder.GetFilesAsync();
+            return fileList;
         }
     }
 }

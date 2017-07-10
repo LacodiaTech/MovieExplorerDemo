@@ -7,6 +7,7 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:syncfusionpull="clr-namespace:Syncfusion.SfPullToRefresh.XForms;assembly=Syncfusion.SfPullToRefresh.XForms"
              xmlns:theme="clr-namespace:MovieExplorer.Themes"
              x:Class="MovieExplorer.Views.MainPage"
              NavigationPage.HasNavigationBar="False">
@@ -16,154 +17,164 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ScrollView Style="{StaticResource PageBackgroundStyle}">
-        <Grid VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="172" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="172" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="172" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="172" />
-            </Grid.RowDefinitions>
+    <syncfusionpull:SfPullToRefresh x:Name="pullToRefresh"
+                                    IsRefreshing="False" 
+                                    PullingThershold="100"
+                                    RefreshContentHeight="30"
+                                    RefreshContentThreshold="30"
+                                    RefreshContentWidth="30">
+        <syncfusionpull:SfPullToRefresh.PullableContent>
+            <ScrollView Style="{StaticResource PageBackgroundStyle}">
+                <Grid VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="172" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="172" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="172" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="172" />
+                    </Grid.RowDefinitions>
 
-            <!-- Header-->
-            <Grid Grid.Row="0"
-                  HorizontalOptions="FillAndExpand"
-                  Style="{StaticResource HeaderBackgroundStyle}">
-                <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center"
-                              Orientation="Horizontal" >
-                    <Label Text="Movie Explorer"
-                           HorizontalOptions="CenterAndExpand"
-                           Style="{StaticResource LabelHeaderStyle}"/>
-                    <ffimageloadingsvg:SvgCachedImage WidthRequest="25"
+                    <!-- Header-->
+                    <Grid Grid.Row="0"
+                          HorizontalOptions="FillAndExpand"
+                          Style="{StaticResource HeaderBackgroundStyle}">
+                        <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center"
+                                      Orientation="Horizontal" >
+                            <Label Text="Movie Explorer"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Style="{StaticResource LabelHeaderStyle}"/>
+                            <ffimageloadingsvg:SvgCachedImage WidthRequest="25"
                                                       HeightRequest="25"
                                                       Margin="0,0,5,0"
                                                       HorizontalOptions="End"
                                                       Source="resource://MovieExplorer.Resources.magnify.svg">
 
-                    </ffimageloadingsvg:SvgCachedImage>
-                </StackLayout>
-            </Grid>
+                            </ffimageloadingsvg:SvgCachedImage>
+                        </StackLayout>
+                    </Grid>
 
-            <!-- Top Rated Movies-->
-            <Label Text="Top Rated" Grid.Row="1"
-                   Margin="10,0,0,0"
+                    <!-- Top Rated Movies-->
+                    <Label Text="Top Rated" Grid.Row="1"
+                           Margin="10,0,0,0"
+                           
                    Style="{StaticResource MovieLabelStyle}"/>
-            <syncfusion:SfListView x:Name="TopRatedListView" Grid.Row="2"
-                                   Margin="10,0,0,5"
-                                   Orientation="Horizontal"
-                                   VerticalOptions="FillAndExpand"
-                                   ItemSize="125"
-                                   ItemSpacing="1,0"
-                                   IsScrollBarVisible="False"
-                                   ItemsSource="{Binding TopRatedList}"
-                                   SelectedItem="{Binding SelectedMovie}">
-                <syncfusion:SfListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal"
-                                     Padding="1"
-                                     BackgroundColor="{StaticResource BorderColor}"
-                                     HorizontalOptions="StartAndExpand"
-                                     VerticalOptions="FillAndExpand">                            
-                            <Image x:Name="TopRatedMoviePosterImage"
-                                   HeightRequest="170"
-                                   WidthRequest="114"
-                                   Source="{Binding poster_fullPathw154}"/>
-                        </StackLayout>
-                    </DataTemplate>
-                </syncfusion:SfListView.ItemTemplate>
-            </syncfusion:SfListView>
-            
-            <!-- Popular Movies -->
-            <Label Text="Popular" Grid.Row="3"
-                   Margin="10,0,0,0"
-                   Style="{StaticResource MovieLabelStyle}"/>
-            <syncfusion:SfListView x:Name="PopularListView" Grid.Row="4"
-                                   Margin="10,0,0,5"
-                                   Orientation="Horizontal"
-                                   VerticalOptions="FillAndExpand"
-                                   ItemSize="125"
-                                   ItemSpacing="1,0"
-                                   IsScrollBarVisible="False"
-                                   ItemsSource="{Binding PopularList}"
-                                   SelectedItem="{Binding SelectedMovie}">
-                <syncfusion:SfListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal"
-                                     Padding="1"
-                                     BackgroundColor="{StaticResource BorderColor}"
-                                     HorizontalOptions="StartAndExpand"
-                                     VerticalOptions="FillAndExpand">
-                            <Image x:Name="TopRatedMoviePosterImage"
-                                   HeightRequest="170"
-                                   WidthRequest="114"
-                                   Source="{Binding poster_fullPathw154}"/>
-                        </StackLayout>
-                    </DataTemplate>
-                </syncfusion:SfListView.ItemTemplate>
-            </syncfusion:SfListView>
+                    <syncfusion:SfListView x:Name="TopRatedListView" Grid.Row="2"
+                                           Margin="10,0,0,5"
+                                           Orientation="Horizontal"
+                                           VerticalOptions="FillAndExpand"
+                                           ItemSize="125"
+                                           ItemSpacing="1,0"
+                                           IsScrollBarVisible="False"
+                                           ItemsSource="{Binding TopRatedList}"
+                                           SelectedItem="{Binding SelectedMovie}">
+                        <syncfusion:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal"
+                                             Padding="1"
+                                             BackgroundColor="{StaticResource BorderColor}"
+                                             HorizontalOptions="StartAndExpand"
+                                             VerticalOptions="FillAndExpand">
+                                    <Image x:Name="TopRatedMoviePosterImage"
+                                           HeightRequest="170"
+                                           WidthRequest="114"
+                                           Source="{Binding poster_fullPathw154}"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
 
-            <!-- Now Playing Movies-->
-            <Label Text="Now Playing" Grid.Row="5"
-                   Margin="10,0,0,0"
-                   Style="{StaticResource MovieLabelStyle}"/>
-            <syncfusion:SfListView x:Name="NowPlayingListView" Grid.Row="6"
-                                   Margin="10,0,0,5"
-                                   Orientation="Horizontal"
-                                   VerticalOptions="FillAndExpand"
-                                   ItemSize="125"
-                                   ItemSpacing="1,0"
-                                   IsScrollBarVisible="False"
-                                   ItemsSource="{Binding NowPlayingList}"
-                                   SelectedItem="{Binding SelectedMovie}">
-                <syncfusion:SfListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal"
-                                     Padding="1"
-                                     BackgroundColor="{StaticResource BorderColor}"
-                                     HorizontalOptions="StartAndExpand"
-                                     VerticalOptions="FillAndExpand">
-                            <Image x:Name="TopRatedMoviePosterImage"
-                                   HeightRequest="170"
-                                   WidthRequest="114"
-                                   Source="{Binding poster_fullPathw154}"/>
-                        </StackLayout>
-                    </DataTemplate>
-                </syncfusion:SfListView.ItemTemplate>
-            </syncfusion:SfListView>
+                    <!-- Popular Movies -->
+                    <Label Text="Popular" Grid.Row="3"
+                           Margin="10,0,0,0"
+                           Style="{StaticResource MovieLabelStyle}"/>
+                    <syncfusion:SfListView x:Name="PopularListView" Grid.Row="4"
+                                           Margin="10,0,0,5"
+                                           Orientation="Horizontal"
+                                           VerticalOptions="FillAndExpand"
+                                           ItemSize="125"
+                                           ItemSpacing="1,0"
+                                           IsScrollBarVisible="False"
+                                           ItemsSource="{Binding PopularList}"
+                                           SelectedItem="{Binding SelectedMovie}">
+                        <syncfusion:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal"
+                                             Padding="1"
+                                             BackgroundColor="{StaticResource BorderColor}"
+                                             HorizontalOptions="StartAndExpand"
+                                             VerticalOptions="FillAndExpand">
+                                            <Image x:Name="TopRatedMoviePosterImage"
+                                                   HeightRequest="170"
+                                                   WidthRequest="114"
+                                                   Source="{Binding poster_fullPathw154}"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
 
-            <!-- Favorite Movies-->
-            <Label Text="Favorites" Grid.Row="7"
-                   Margin="10,0,0,0"
-                   Style="{StaticResource MovieLabelStyle}"/>
-            <syncfusion:SfListView x:Name="FavoritesListView" Grid.Row="8"
-                                   Margin="10,0,0,5"
-                                   Orientation="Horizontal"
-                                   VerticalOptions="FillAndExpand"
-                                   ItemSize="125"
-                                   ItemSpacing="1,0"
-                                   IsScrollBarVisible="False"
-                                   ItemsSource="{Binding FavoriteList}"
-                                   SelectedItem="{Binding SelectedMovie}">
-                <syncfusion:SfListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal"
-                                     Padding="1"
-                                     BackgroundColor="{StaticResource BorderColor}"
-                                     HorizontalOptions="StartAndExpand"
-                                     VerticalOptions="FillAndExpand">
-                            <Image x:Name="TopRatedMoviePosterImage"
-                                   HeightRequest="170"
-                                   WidthRequest="114"
-                                   Source="{Binding poster_fullPathw154}"/>
-                        </StackLayout>
-                    </DataTemplate>
-                </syncfusion:SfListView.ItemTemplate>
-            </syncfusion:SfListView>
-        </Grid>
-    </ScrollView>
+                    <!-- Now Playing Movies-->
+                    <Label Text="Now Playing" Grid.Row="5"
+                           Margin="10,0,0,0"
+                           Style="{StaticResource MovieLabelStyle}"/>
+                    <syncfusion:SfListView x:Name="NowPlayingListView" Grid.Row="6"
+                                           Margin="10,0,0,5"
+                                           Orientation="Horizontal"
+                                           VerticalOptions="FillAndExpand"
+                                           ItemSize="125"
+                                           ItemSpacing="1,0"
+                                           IsScrollBarVisible="False"
+                                           ItemsSource="{Binding NowPlayingList}"
+                                           SelectedItem="{Binding SelectedMovie}">
+                        <syncfusion:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal"
+                                             Padding="1"
+                                             BackgroundColor="{StaticResource BorderColor}"
+                                             HorizontalOptions="StartAndExpand"
+                                             VerticalOptions="FillAndExpand">
+                                    <Image x:Name="TopRatedMoviePosterImage"
+                                           HeightRequest="170"
+                                           WidthRequest="114"
+                                           Source="{Binding poster_fullPathw154}"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
+
+                    <!-- Favorite Movies-->
+                    <Label Text="Favorites" Grid.Row="7"
+                           Margin="10,0,0,0"
+                           Style="{StaticResource MovieLabelStyle}"/>
+                    <syncfusion:SfListView x:Name="FavoritesListView" Grid.Row="8"
+                                            Margin="10,0,0,5"
+                                            Orientation="Horizontal"
+                                            VerticalOptions="FillAndExpand"
+                                            ItemSize="125"
+                                            ItemSpacing="1,0"
+                                            IsScrollBarVisible="False"
+                                            ItemsSource="{Binding FavoriteList}"
+                                            SelectedItem="{Binding SelectedMovie}">
+                        <syncfusion:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Orientation="Horizontal"
+                                             Padding="1"
+                                             BackgroundColor="{StaticResource BorderColor}"
+                                             HorizontalOptions="StartAndExpand"
+                                             VerticalOptions="FillAndExpand">
+                                            <Image x:Name="TopRatedMoviePosterImage"
+                                                   HeightRequest="170"
+                                                   WidthRequest="114"
+                                                   Source="{Binding poster_fullPathw154}"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </syncfusion:SfListView.ItemTemplate>
+                    </syncfusion:SfListView>
+                </Grid>
+            </ScrollView>
+        </syncfusionpull:SfPullToRefresh.PullableContent>
+    </syncfusionpull:SfPullToRefresh>
 </ContentPage>

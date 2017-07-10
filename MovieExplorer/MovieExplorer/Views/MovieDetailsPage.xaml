@@ -6,7 +6,7 @@
              xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"             
              xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
              xmlns:theme="clr-namespace:MovieExplorer.Themes"
              x:Class="MovieExplorer.Views.MovieDetailsPage"
@@ -47,10 +47,10 @@
                         </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
 
                     </ffimageloadingsvg:SvgCachedImage>
-                    
+
                 </StackLayout>
             </Grid>
-            
+
             <!-- Movie Details-->
             <Grid Grid.Row="1"
                   HorizontalOptions="StartAndExpand"
@@ -61,7 +61,7 @@
                     <ColumnDefinition Width="134" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                
+
                 <StackLayout Grid.Column="0"
                              Padding="1"
                              BackgroundColor="{StaticResource BorderColor}">
@@ -111,7 +111,7 @@
                     </StackLayout>
                 </StackLayout>
             </Grid>
-            
+
             <!-- Movie Overview-->
             <Label Text="{Binding Overview}" Grid.Row="2"
                    Margin="10,10"
@@ -148,4 +148,8 @@
             </syncfusion:SfListView>
         </Grid>
     </ScrollView>
+
+
+
+
 </ContentPage>

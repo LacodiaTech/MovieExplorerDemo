@@ -9,6 +9,7 @@ using Microsoft.Practices.Unity;
 using FFImageLoading.Forms.Touch;
 using Syncfusion.ListView.XForms.iOS;
 using Syncfusion.SfRating.XForms.iOS;
+using Syncfusion.SfPullToRefresh.XForms.iOS;
 
 namespace MovieExplorer.iOS
 {
@@ -31,6 +32,7 @@ namespace MovieExplorer.iOS
 
             // Initialize Syncfusions SfListViewRenderer.
             SfListViewRenderer.Init();
+            SfPullToRefreshRenderer.Init();
             new SfRatingRenderer();
 
             // Initialize FFImageLoading.

@@ -15,6 +15,7 @@ namespace MovieExplorer.ViewModels
     public class MainPageViewModel : BindableBase, INavigationAware
     {
         // TODO: Authentication.
+        // TODO: Error Handling.
         // TODO: Searching.
         // TODO: Sorting and Filtering.
 
@@ -96,6 +97,12 @@ namespace MovieExplorer.ViewModels
         }
         #endregion
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="navigationService"></param>
+        /// <param name="iMovieExplorerAPIService"></param>
+        /// <param name="iDataManager"></param>
         public MainPageViewModel(INavigationService navigationService, IMovieExplorerAPIService iMovieExplorerAPIService, IDataManager iDataManager)
         {
             _navigationService = navigationService;
@@ -103,6 +110,7 @@ namespace MovieExplorer.ViewModels
             _iDataManager = iDataManager;
         }
 
+        #region Navigation
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
 
@@ -120,8 +128,26 @@ namespace MovieExplorer.ViewModels
         {
 
         }
+        #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Refresh content when user pulls to refresh.
+        /// </summary>
+        /// <returns></returns>
+        public async Task PullToRefreshAsync()
+        {
+            await GetTopRatedMovieListAsync();
+            await GetPopularMoviesListAsync();
+            await GetNowPlayingMovieListAsync();
+            await GetFavoritedMovieListAsync();
+        }
+
+        /// <summary>
+        /// Gets Top Rated Movie List.
+        /// </summary>
+        /// <returns></returns>
         private async Task<TopRatedListModel> GetTopRatedMovieListAsync()
         {
             var sortBy = "popularity.des";
@@ -134,6 +160,10 @@ namespace MovieExplorer.ViewModels
             return topRatedMovieList;
         }
 
+        /// <summary>
+        /// Get Popular Movie List.
+        /// </summary>
+        /// <returns></returns>
         private async Task<PopularListModel> GetPopularMoviesListAsync()
         {
             var sortBy = "popularity.des";

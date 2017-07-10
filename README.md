@@ -10,3 +10,4 @@ Features include:
   3. Theme and styles.
   4. Http Request Interface.
   5. Retrieving data from API.
+  6. Pull To Refresh mainpage.

@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
 using Syncfusion.ListView.XForms.UWP;
+using Syncfusion.SfPullToRefresh.XForms.UWP;
 
 namespace MovieExplorer.UWP
 {
@@ -26,6 +27,7 @@ namespace MovieExplorer.UWP
 
             // Initializes Syncfusion ListView.
             SfListViewRenderer.Init();
+            SfPullToRefreshRenderer.Init();
             LoadApplication(new MovieExplorer.App(new UwpInitializer()));
         }
     }

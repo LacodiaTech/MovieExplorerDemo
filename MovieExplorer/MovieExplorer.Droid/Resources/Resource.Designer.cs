@@ -26,6 +26,8 @@ namespace MovieExplorer.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::PCLStorage.Resource.String.ApplicationName = global::MovieExplorer.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::MovieExplorer.Droid.Resource.String.Hello;
 			global::Syncfusion.ListView.XForms.Android.Resource.Animation.abc_fade_in = global::MovieExplorer.Droid.Resource.Animation.abc_fade_in;
 			global::Syncfusion.ListView.XForms.Android.Resource.Animation.abc_fade_out = global::MovieExplorer.Droid.Resource.Animation.abc_fade_out;
 			global::Syncfusion.ListView.XForms.Android.Resource.Animation.abc_grow_fade_in_from_bottom = global::MovieExplorer.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -1812,6 +1814,7 @@ namespace MovieExplorer.Droid
 			global::Syncfusion.ListView.XForms.Android.Resource.Styleable.ViewStubCompat_android_id = global::MovieExplorer.Droid.Resource.Styleable.ViewStubCompat_android_id;
 			global::Syncfusion.ListView.XForms.Android.Resource.Styleable.ViewStubCompat_android_inflatedId = global::MovieExplorer.Droid.Resource.Styleable.ViewStubCompat_android_inflatedId;
 			global::Syncfusion.ListView.XForms.Android.Resource.Styleable.ViewStubCompat_android_layout = global::MovieExplorer.Droid.Resource.Styleable.ViewStubCompat_android_layout;
+			global::Com.Syncfusion.Rating.Resource.String.library_name = global::MovieExplorer.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::MovieExplorer.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -4806,6 +4809,9 @@ namespace MovieExplorer.Droid
 			
 			// aapt resource value: 0x7f080025
 			public const int character_counter_pattern = 2131230757;
+			
+			// aapt resource value: 0x7f080028
+			public const int library_name = 2131230760;
 			
 			// aapt resource value: 0x7f080000
 			public const int mr_button_content_description = 2131230720;

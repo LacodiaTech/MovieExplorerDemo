@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieExplorer.Core.Models
 {
-    public class NowPlayingModel
+    public class MovieDetailsModel
     {
         public int vote_count { get; set; }
         public int id { get; set; }
@@ -22,12 +22,29 @@ namespace MovieExplorer.Core.Models
         public bool adult { get; set; }
         public string overview { get; set; }
         public string release_date { get; set; }
+        public bool is_favorite { get; set; }
 
-        public string poster_fullPath
+        public string poster_fullPathw92
         {
             get
             {
                 return "http://image.tmdb.org/t/p/w92" + poster_path;
+            }
+        }
+
+        public string poster_fullPathw154
+        {
+            get
+            {
+                return "http://image.tmdb.org/t/p/w154" + poster_path;
+            }
+        }
+
+        public string poster_fullPathw185
+        {
+            get
+            {
+                return "http://image.tmdb.org/t/p/w185" + poster_path;
             }
         }
     }

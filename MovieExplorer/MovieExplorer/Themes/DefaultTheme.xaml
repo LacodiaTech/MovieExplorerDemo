@@ -10,6 +10,10 @@
     <Color x:Key="BasicDark2Color">#525252</Color>
     <Color x:Key="GoldColor">#DA952D</Color>
     <Color x:Key="BorderColor">#ebebeb</Color>
+    <Color x:Key="RatingRatedColor">#D65432</Color>
+    <Color x:Key="RatingUnRatedColor">#FFFFFF</Color>
+    <Color x:Key="ButtonGreenColor">#A3CA19</Color>
+    <Color x:Key="ButtonGoldColor">#DBB001</Color>
 
     <!-- Default Target Types -->
     <Style TargetType="Label">
@@ -44,7 +48,30 @@
         <Setter Property="TextColor" Value="{StaticResource BasicLight1Color}" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="FontSize" Value="Micro" />
-        <Setter Property="Margin" Value="10,0,0,0" />        
+    </Style>
+
+    <Style x:Key="LabelSmallStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource BasicLight1Color}" />
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <OnPlatform x:TypeArguments="x:Double" 
+                    iOS="12" 
+                    WinPhone="14" 
+                    Android="12" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LabelSmallestStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource BasicLight1Color}" />
+        <Setter Property="FontSize">
+            <Setter.Value>
+                <OnPlatform x:TypeArguments="x:Double" 
+                    iOS="10" 
+                    WinPhone="12" 
+                    Android="10" />
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

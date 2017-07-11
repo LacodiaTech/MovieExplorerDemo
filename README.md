@@ -2,7 +2,8 @@
 
 Movie Explorer Demo App.
 
-Description: This is a Xamarin.Forms App demonstrating the use of C#, XAML, JSON, Prism-MVVM, IOC and DI, IntelliTest Unit Testing, Syncfusion Controls, and PCLStorage use.
+Description: The Movie Explorer app lists movies from The Movie Database (TMDb) API, and enables the user to create a list of favorites. It is a
+Xamarin.Forms project which demonstrates the use of C#, XAML, JSON, Prism-MVVM, IOC and DI, IntelliTest Unit Testing, Syncfusion Controls, and PCLStorage use.
 
 Features include:
   1. Movie Explorer page: Top Rated, Popular, Now Playing, and Favorite Movie list with thumbnails.

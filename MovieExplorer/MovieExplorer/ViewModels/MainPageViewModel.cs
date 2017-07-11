@@ -34,6 +34,11 @@ namespace MovieExplorer.ViewModels
         /// Interface for saveing and retrieving data.
         /// </summary>
         private readonly IDataManager _iDataManager;
+
+        /// <summary>
+        /// Default Sort Order.
+        /// </summary>
+        private readonly string sortBy = "popularity.des";
         #endregion
 
         #region Public Properties
@@ -118,10 +123,7 @@ namespace MovieExplorer.ViewModels
 
         public async void OnNavigatingTo(NavigationParameters parameters)
         {
-            await GetTopRatedMovieListAsync();
-            await GetPopularMoviesListAsync();
-            await GetNowPlayingMovieListAsync();
-            await GetFavoritedMovieListAsync();
+            await RefreshAsync();
         }
 
         public async void OnNavigatedTo(NavigationParameters parameters)
@@ -136,60 +138,60 @@ namespace MovieExplorer.ViewModels
         /// Refresh content when user pulls to refresh.
         /// </summary>
         /// <returns></returns>
-        public async Task PullToRefreshAsync()
+        public async Task RefreshAsync()
         {
-            await GetTopRatedMovieListAsync();
-            await GetPopularMoviesListAsync();
-            await GetNowPlayingMovieListAsync();
+            TopRatedList = await GetTopRatedMovieListAsync(sortBy);
+            PopularList = await GetPopularMoviesListAsync(sortBy);
+            NowPlayingList = await GetNowPlayingMovieListAsync(sortBy);
             await GetFavoritedMovieListAsync();
         }
 
         /// <summary>
         /// Gets Top Rated Movie List.
         /// </summary>
+        /// <param name="sortBy"></param>
         /// <returns></returns>
-        private async Task<TopRatedListModel> GetTopRatedMovieListAsync()
-        {
-            var sortBy = "popularity.des";
+        private async Task<ObservableCollection<MovieDetailsModel>> GetTopRatedMovieListAsync(string sortBy)
+        {            
             var topRatedMovieList = await _iMovieExplorerAPIService.GetTopRatedMoviesAsync(sortBy);
 
             if (topRatedMovieList.results != null)
             {
-                TopRatedList = new ObservableCollection<MovieDetailsModel>(topRatedMovieList.results);
+                return new ObservableCollection<MovieDetailsModel>(topRatedMovieList.results);
             }
-            return topRatedMovieList;
+            return null;
         }
 
         /// <summary>
         /// Get Popular Movie List.
         /// </summary>
+        /// <param name="sortBy"></param>
         /// <returns></returns>
-        private async Task<PopularListModel> GetPopularMoviesListAsync()
+        private async Task<ObservableCollection<MovieDetailsModel>> GetPopularMoviesListAsync(string sortBy)
         {
-            var sortBy = "popularity.des";
             var popularMovieList = await _iMovieExplorerAPIService.GetPopularMoviesAsync(sortBy);
 
             if (popularMovieList.results != null)
             {
-                PopularList = new ObservableCollection<MovieDetailsModel>(popularMovieList.results);
+                return new ObservableCollection<MovieDetailsModel>(popularMovieList.results);
             }
-            return popularMovieList;
+            return null;
         }
 
         /// <summary>
         /// Get the list of the Now Playing Movies.
         /// </summary>
+        /// <param name="sortBy"></param>
         /// <returns></returns>
-        private async Task<NowPlayingListModel> GetNowPlayingMovieListAsync()
+        private async Task<ObservableCollection<MovieDetailsModel>> GetNowPlayingMovieListAsync(string sortBy)
         {
-            var sortBy = "popularity.des";
             var nowPlayingMovieList = await _iMovieExplorerAPIService.GetNowPlayingMoviesAsync(sortBy);
 
             if (nowPlayingMovieList.results != null)
             {
-                NowPlayingList = new ObservableCollection<MovieDetailsModel>(nowPlayingMovieList.results);
+                return new ObservableCollection<MovieDetailsModel>(nowPlayingMovieList.results);
             }
-            return nowPlayingMovieList;
+            return null;
         }
 
         /// <summary>

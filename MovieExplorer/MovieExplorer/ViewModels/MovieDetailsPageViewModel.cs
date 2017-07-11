@@ -39,6 +39,7 @@ namespace MovieExplorer.ViewModels
         /// Check if movie is a favorite.
         /// </summary>
         private bool isFavorite = false;
+
         #endregion
 
         #region Public Properties
@@ -209,7 +210,7 @@ namespace MovieExplorer.ViewModels
             double arBaseTen = movie.vote_average;
             AverageRating = arBaseTen / 2;
 
-            await GetSimilarMovieListAsync();
+            SimilarList = await GetSimilarMovieListAsync();
             await CheckIfMovieIsFavorite();
         }
 
@@ -245,15 +246,15 @@ namespace MovieExplorer.ViewModels
         /// Get the list of the Similar Movies.
         /// </summary>
         /// <returns></returns>
-        private async Task<SimilarListModel> GetSimilarMovieListAsync()
+        private async Task<ObservableCollection<MovieDetailsModel>> GetSimilarMovieListAsync()
         {
             var similarMovieList = await _iMovieExplorerAPIService.GetSimilarMoviesAsync(movieId);
 
             if (similarMovieList.results != null)
             {
-                SimilarList = new ObservableCollection<MovieDetailsModel>(similarMovieList.results);
+                return new ObservableCollection<MovieDetailsModel>(similarMovieList.results);
             }
-            return similarMovieList;
+            return null;
         }
 
         /// <summary>

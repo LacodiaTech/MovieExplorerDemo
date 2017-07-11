@@ -31,7 +31,7 @@ namespace MovieExplorer.Views
             MainPageViewModel vm = this.BindingContext as MainPageViewModel;
 
             /// ViewModel Pull To Refresh Method.
-            await vm.PullToRefreshAsync();
+            await vm.RefreshAsync();
 
             pullToRefresh.IsRefreshing = false;
         }

@@ -27,15 +27,16 @@
             <ScrollView Style="{StaticResource PageBackgroundStyle}">
                 <Grid VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="40" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="172" />
+                        <RowDefinition Height="174" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="172" />
+                        <RowDefinition Height="174" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="172" />
+                        <RowDefinition Height="174" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="172" />
+                        <RowDefinition Height="174" />
+                        <RowDefinition Height="15" />
                     </Grid.RowDefinitions>
 
                     <!-- Header-->
@@ -45,6 +46,7 @@
                         <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center"
                                       Orientation="Horizontal" >
                             <Label Text="Movie Explorer"
+                                   Margin="25,0,0,0"
                                    HorizontalOptions="CenterAndExpand"
                                    Style="{StaticResource LabelHeaderStyle}"/>
                             <ffimageloadingsvg:SvgCachedImage WidthRequest="25"
@@ -52,7 +54,6 @@
                                                       Margin="0,0,5,0"
                                                       HorizontalOptions="End"
                                                       Source="resource://MovieExplorer.Resources.magnify.svg">
-
                             </ffimageloadingsvg:SvgCachedImage>
                         </StackLayout>
                     </Grid>
@@ -60,8 +61,7 @@
                     <!-- Top Rated Movies-->
                     <Label Text="Top Rated" Grid.Row="1"
                            Margin="10,0,0,0"
-                           
-                   Style="{StaticResource MovieLabelStyle}"/>
+                           Style="{StaticResource MovieLabelStyle}"/>
                     <syncfusion:SfListView x:Name="TopRatedListView" Grid.Row="2"
                                            Margin="10,0,0,5"
                                            Orientation="Horizontal"
@@ -77,10 +77,12 @@
                                              Padding="1"
                                              BackgroundColor="{StaticResource BorderColor}"
                                              HorizontalOptions="StartAndExpand"
-                                             VerticalOptions="FillAndExpand">
+                                             VerticalOptions="StartAndExpand">
                                     <Image x:Name="TopRatedMoviePosterImage"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
                                            HeightRequest="170"
-                                           WidthRequest="114"
+                                           WidthRequest="112"
                                            Source="{Binding poster_fullPathw154}"/>
                                 </StackLayout>
                             </DataTemplate>
@@ -106,11 +108,13 @@
                                              Padding="1"
                                              BackgroundColor="{StaticResource BorderColor}"
                                              HorizontalOptions="StartAndExpand"
-                                             VerticalOptions="FillAndExpand">
-                                            <Image x:Name="TopRatedMoviePosterImage"
-                                                   HeightRequest="170"
-                                                   WidthRequest="114"
-                                                   Source="{Binding poster_fullPathw154}"/>
+                                             VerticalOptions="StartAndExpand">
+                                    <Image x:Name="TopRatedMoviePosterImage"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           HeightRequest="170"
+                                           WidthRequest="112"
+                                           Source="{Binding poster_fullPathw154}"/>
                                 </StackLayout>
                             </DataTemplate>
                         </syncfusion:SfListView.ItemTemplate>
@@ -135,10 +139,12 @@
                                              Padding="1"
                                              BackgroundColor="{StaticResource BorderColor}"
                                              HorizontalOptions="StartAndExpand"
-                                             VerticalOptions="FillAndExpand">
+                                             VerticalOptions="StartAndExpand">
                                     <Image x:Name="TopRatedMoviePosterImage"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
                                            HeightRequest="170"
-                                           WidthRequest="114"
+                                           WidthRequest="112"
                                            Source="{Binding poster_fullPathw154}"/>
                                 </StackLayout>
                             </DataTemplate>
@@ -164,11 +170,13 @@
                                              Padding="1"
                                              BackgroundColor="{StaticResource BorderColor}"
                                              HorizontalOptions="StartAndExpand"
-                                             VerticalOptions="FillAndExpand">
-                                            <Image x:Name="TopRatedMoviePosterImage"
-                                                   HeightRequest="170"
-                                                   WidthRequest="114"
-                                                   Source="{Binding poster_fullPathw154}"/>
+                                             VerticalOptions="StartAndExpand">
+                                    <Image x:Name="TopRatedMoviePosterImage"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           HeightRequest="170"
+                                           WidthRequest="112"
+                                           Source="{Binding poster_fullPathw154}"/>
                                 </StackLayout>
                             </DataTemplate>
                         </syncfusion:SfListView.ItemTemplate>

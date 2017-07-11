@@ -20,12 +20,14 @@
     <ScrollView Style="{StaticResource PageBackgroundStyle}">
         <Grid HorizontalOptions="FillAndExpand"
               VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
+            <Grid.RowDefinitions>                
+                <RowDefinition Height="40" />
+                <RowDefinition Height="5" />
                 <RowDefinition Height="200" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="172" />
+                <RowDefinition Height="174" />
+                <RowDefinition Height="15" />
             </Grid.RowDefinitions>
 
             <!-- Header-->
@@ -35,6 +37,7 @@
                 <StackLayout  HorizontalOptions="FillAndExpand" VerticalOptions="Center"
                               Orientation="Horizontal" >
                     <Label Text="Movie Explorer"
+                           Margin="25,0,0,0"
                            HorizontalOptions="CenterAndExpand"
                            Style="{StaticResource LabelHeaderStyle}"/>
                     <ffimageloadingsvg:SvgCachedImage WidthRequest="25"
@@ -52,7 +55,7 @@
             </Grid>
 
             <!-- Movie Details-->
-            <Grid Grid.Row="1"
+            <Grid Grid.Row="2"
                   HorizontalOptions="StartAndExpand"
                   VerticalOptions="FillAndExpand"
                   Margin="10,0">
@@ -66,7 +69,9 @@
                              Padding="1"
                              BackgroundColor="{StaticResource BorderColor}">
                     <Image x:Name="MoviePoster"
-                           HeightRequest="200"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           HeightRequest="198"
                            WidthRequest="132"
                            Source="{Binding Image}"/>
                 </StackLayout>
@@ -78,9 +83,9 @@
                            Style="{StaticResource MovieLabelStyle}"/>
                     <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="StartAndExpand">
-                        <Label Text="Release Date:" 
+                        <Label Text="Release Date:"
                                Style="{StaticResource LabelSmallStyle}"/>
-                        <Label Text="{Binding ReleaseDate}" 
+                        <Label Text="{Binding ReleaseDate}"
                                Style="{StaticResource LabelSmallStyle}"/>
                     </StackLayout>
                     <rating:SfRating x:Name="rating"
@@ -95,14 +100,19 @@
                                                      RatedStrokeWidth="0" UnRatedStrokeWidth="0" />
                         </rating:SfRating.RatingSettings>
                     </rating:SfRating>
-                    <Label Text="{Binding VoteCount}" 
-                           Style="{StaticResource LabelSmallestStyle}"/>
+                    <Label Text="{Binding VoteCount}"
+                           Margin="0,-5,0,0"
+                           VerticalOptions="Start"
+                           VerticalTextAlignment="Start"
+                           Style="{StaticResource LabelSmallStyle}"/>
                     <StackLayout VerticalOptions="EndAndExpand">
                         <Button Text="Play Video"
+                                HeightRequest="40"
                                 TextColor="{StaticResource BasicLight1Color}"
                                 HorizontalOptions="Start"
                                 BackgroundColor="{StaticResource ButtonGreenColor}"/>
                         <Button Text="{Binding Favorite}"
+                                HeightRequest="40"
                                 HorizontalOptions="Start"
                                 IsEnabled="{Binding IsFavoriteButtonEnabled}"
                                 TextColor="{StaticResource BasicLight1Color}"
@@ -113,16 +123,16 @@
             </Grid>
 
             <!-- Movie Overview-->
-            <Label Text="{Binding Overview}" Grid.Row="2"
+            <Label Text="{Binding Overview}" Grid.Row="3"
                    Margin="10,10"
                    HorizontalOptions="FillAndExpand"
                    Style="{StaticResource LabelSmallStyle}"/>
 
             <!-- Similar Movies-->
-            <Label Text="Similar Movies" Grid.Row="3"
+            <Label Text="Similar Movies" Grid.Row="4"
                    Margin="10,0"
                    Style="{StaticResource MovieLabelStyle}"/>
-            <syncfusion:SfListView x:Name="SimilarListView" Grid.Row="4"
+            <syncfusion:SfListView x:Name="SimilarListView" Grid.Row="5"
                                    Margin="10,0,0,5"
                                    Orientation="Horizontal"
                                    VerticalOptions="FillAndExpand"
@@ -137,10 +147,12 @@
                                      Padding="1"
                                      BackgroundColor="{StaticResource BorderColor}"
                                      HorizontalOptions="StartAndExpand"
-                                     VerticalOptions="FillAndExpand">
+                                     VerticalOptions="StartAndExpand">
                             <Image x:Name="TopRatedMoviePosterImage"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
                                    HeightRequest="170"
-                                   WidthRequest="114"
+                                   WidthRequest="112"
                                    Source="{Binding poster_fullPathw154}"/>
                         </StackLayout>
                     </DataTemplate>
@@ -148,8 +160,4 @@
             </syncfusion:SfListView>
         </Grid>
     </ScrollView>
-
-
-
-
 </ContentPage>

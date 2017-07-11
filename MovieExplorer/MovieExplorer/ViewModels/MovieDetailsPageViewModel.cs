@@ -199,7 +199,9 @@ namespace MovieExplorer.ViewModels
 
             Image = movie.poster_fullPathw154;
             Title = movie.title;
-            ReleaseDate = movie.release_date;
+
+            ReleaseDate = movie.release_date_formatted;
+
             VoteCount = $"(from {movie.vote_count} votes)";
             Overview = movie.overview;
             movieId = movie.id;

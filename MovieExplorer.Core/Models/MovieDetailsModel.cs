@@ -21,8 +21,16 @@ namespace MovieExplorer.Core.Models
         public string backdrop_path { get; set; }
         public bool adult { get; set; }
         public string overview { get; set; }
-        public string release_date { get; set; }
+        public DateTime release_date { get; set; }
         public bool is_favorite { get; set; }
+
+        public string release_date_formatted
+        {
+            get
+            {                
+                return release_date.ToString("MM/dd/yyyy");
+            }
+        }
 
         public string poster_fullPathw92
         {

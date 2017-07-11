@@ -30,3 +30,6 @@ using Xamarin.Forms.Xaml;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: InternalsVisibleTo("MovieExplorer1.Tests")]
+[assembly: InternalsVisibleTo("MovieExplorer.Explorables")]
+

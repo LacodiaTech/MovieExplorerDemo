@@ -219,9 +219,12 @@ namespace MovieExplorer.ViewModels
         /// <param name="selectedMovie"></param>
         private void ShowDetails(object selectedMovie)
         {
-            var navigationParams = new NavigationParameters();
-            navigationParams.Add("selectedMovie", selectedMovie);
-            _navigationService.NavigateAsync("MovieDetailsPage", navigationParams, true, true);
+            if (selectedMovie != null)
+            {
+                var navigationParams = new NavigationParameters();
+                navigationParams.Add("selectedMovie", selectedMovie);
+                _navigationService.NavigateAsync("MovieDetailsPage", navigationParams, true, true);
+            }
         }
         #endregion
     }

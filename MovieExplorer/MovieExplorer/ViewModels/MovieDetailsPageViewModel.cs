@@ -200,15 +200,12 @@ namespace MovieExplorer.ViewModels
 
             Image = movie.poster_fullPathw154;
             Title = movie.title;
-
             ReleaseDate = movie.release_date_formatted;
-
             VoteCount = $"(from {movie.vote_count} votes)";
             Overview = movie.overview;
             movieId = movie.id;
 
-            double arBaseTen = movie.vote_average;
-            AverageRating = arBaseTen / 2;
+            AverageRating = DevideInHalf(movie.vote_average);
 
             SimilarList = await GetSimilarMovieListAsync();
             await CheckIfMovieIsFavorite();
@@ -242,6 +239,17 @@ namespace MovieExplorer.ViewModels
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Convert vote_average to zero to five start value.
+        /// </summary>
+        /// <param name="baseTen"></param>
+        /// <returns></returns>
+        private double DevideInHalf(double baseTen)
+        {
+            double baseFive = baseTen / 2;
+            return baseFive;
+        }
         /// <summary>
         /// Get the list of the Similar Movies.
         /// </summary>
